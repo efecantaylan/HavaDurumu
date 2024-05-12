@@ -1,17 +1,26 @@
+import tkinter
 from tkinter import *
 import requests
-import json
 from datetime import datetime
+# Görsel eklemek
+from PIL import Image, ImageTk
 
-#Pencereyi oluşturmak
+# Pencereyi oluşturmak
 
 root = Tk()
+image1 = Image.open("C:\\Users\\USER\\PycharmProjects\\weatherapp\\image.png")
+
+test = ImageTk.PhotoImage(image1)
+label1 = tkinter.Label(image=test)
+label1.image = test
 root.geometry("400x400")
 root.resizable(0, 0)
-#başlıkeklemek
+label1.place(x=50, y=50)
+
+# başlıkeklemek
 root.title("Hava Durumu")
 
-#Fonksiyonilite
+# Fonksiyonilite
 city_value = StringVar()
 
 
@@ -25,7 +34,7 @@ city_value = StringVar()
 
 def showWeather():
     # OpenWeather'dan alınan API
-    api_key = "eda2b2s6d#sd65f4de7c4b8"  # sample API
+    api_key = "cee1bfadc91df4dbefae286afc09a564"  # sample API
 
     # Kullanıcıdan alınan şehir ismi
     city_name = city_value.get()
@@ -42,7 +51,7 @@ def showWeather():
     tfield.delete("1.0", "end")  # her defasında text alanını temizlemek
 
     if weather_info['cod'] == 200:
-        kelvin = 273  #  kelvin
+        kelvin = 273  # kelvin
 
         # -----------Yakalanmış verileri saklamak
 
@@ -60,7 +69,7 @@ def showWeather():
         sunrise_time = time_format_for_location(sunrise + timezone)
         sunset_time = time_format_for_location(sunset + timezone)
 
-        #bulduğumuz değerleri kullanıcıya yansıtma
+        # bulduğumuz değerleri kullanıcıya yansıtma
 
         weather = f"\nWeather of: {city_name}\nTemperature (Celsius): {temp}°\nFeels like in (Celsius): {feels_like_temp}°\nPressure: {pressure} hPa\nHumidity: {humidity}%\nSunrise at {sunrise_time} and Sunset at {sunset_time}\nCloud: {cloudy}%\nInfo: {description}"
     else:
